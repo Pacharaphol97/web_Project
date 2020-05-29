@@ -16,6 +16,14 @@ export class FunctionService {
   }
 
   getPersonnel(){
-    return this.httpclient.get(firebaseFunction.functionURL +'/getPersonnel').toPromise();
+    return this.httpclient.get(firebaseFunction.functionURL +'/getallPersonnel').toPromise();
+  }
+
+  createPersonnel(body){
+    return this.httpclient.post(firebaseFunction.functionURL +'/createPersonnel',body).toPromise();
+  }
+
+  editPersonnel(body){
+    return this.httpclient.post(firebaseFunction.functionURL +'/editPersonnel',body).toPromise();
   }
 }

@@ -27,14 +27,16 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component'
 import { PersonnelComponent } from './personnel/personnel/personnel.component'
 import { AddpersonnelComponent } from './personnel/addpersonnel/addpersonnel.component'
+import { EditpersonnelComponent } from './personnel/editpersonnel/editpersonnel.component'
 
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'signin',component:SigninComponent},
   {path:'profile',component:ProfileComponent,canActivate:[AuthGuard]},
-  {path:'personnel',component:PersonnelComponent},
-  {path:'createpersonnel',component:AddpersonnelComponent}
+  {path:'personnel',component:PersonnelComponent,canActivate:[AuthGuard]},
+  {path:'createpersonnel',component:AddpersonnelComponent,canActivate:[AuthGuard]},
+  {path:'editpersonnel',component:EditpersonnelComponent,canActivate:[AuthGuard]}
 ];
 
 @NgModule({
@@ -44,7 +46,8 @@ const routes: Routes = [
     SigninComponent,
     HomeComponent,
     PersonnelComponent,
-    AddpersonnelComponent
+    AddpersonnelComponent,
+    EditpersonnelComponent
   ],
   imports: [
     BrowserModule,

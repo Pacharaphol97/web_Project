@@ -3,10 +3,12 @@ import { FunctionService } from '../../services/function/function.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 
 export interface tablePersonnel{
   id:String,
-  fullname:String
+  fullname:String,
+  email:String
 }
 
 @Component({
@@ -17,11 +19,13 @@ export interface tablePersonnel{
 export class PersonnelComponent implements OnInit {
 
   dataPersonnel:MatTableDataSource<tablePersonnel>
-  displayedColumns: string[] = ['id','fullname'];
+  displayedColumns: string[] = ['id','fullname','email','action'];
   dataloading = false
+  dataAllPersonnel
 
   constructor(
-    public firebaseAPI : FunctionService
+    public firebaseAPI : FunctionService,
+    public router:Router 
   ) { }
 
   ngOnInit(): void {
@@ -30,21 +34,32 @@ export class PersonnelComponent implements OnInit {
 
   async getPersonnel(){
     const res:any = await this.firebaseAPI.getPersonnel()
-    
+    this.dataAllPersonnel = res
     let i = 0
     let Personnel = []
     res.data.forEach(doc => {
       Personnel[i] = {
-        id:doc.type.personnel_id,
-        perfix:doc.type.personnel_fullname.personnel_prefix,
-        firstname:doc.type.personnel_fullname.personnel_firstname,
-        lastname:doc.type.personnel_fullname.personnel_lastname
+        uid:doc.id,
+        id:doc.personnel.personnel_id,
+        perfix:doc.personnel.personnel_fullname.personnel_prefix,
+        firstname:doc.personnel.personnel_fullname.personnel_firstname,
+        lastname:doc.personnel.personnel_fullname.personnel_lastname,
+        email:doc.personnel.personnel_email,
+        number:doc.personnel.personnel_tel
       }
       i++
     })
     this.dataPersonnel = new MatTableDataSource(Personnel);
 
     this.dataloading = true
+  }
+
+  addPersonnel(){
+    this.router.navigateByUrl('/createpersonnel')
+  }
+
+  editPersonnel(element){
+    this.router.navigate(['editpersonnel'],{queryParams: {dataPersonnel:JSON.stringify(element)}})
   }
 
   private paginator: MatPaginator;

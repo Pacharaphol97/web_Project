@@ -3,22 +3,12 @@
       <div class="card">
         <div class="card-body"> 
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label">ตำแหน่งพนักงาน</label>
-                <mat-form-field>
-                    <mat-select [(ngModel)]="positionPersonnel">
-                        <mat-option *ngFor="let item of position" [value]="item.value">
-                            {{item.viewValue}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
               <label class="col-sm-1 col-form-label">รหัสพนักงาน</label>
-              <div class="col-sm-3"><input type="string" [(ngModel)]="idPersonnel" class="form-control"></div>
+              <div class="col-sm-3"><input type="string" disabled [(ngModel)]="idPersonnel" class="form-control"></div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-1 col-form-label">อีเมล์ : </label>
-                <div class="col-sm-3"><input type="email" [(ngModel)]="emailPersonnel" class="form-control"></div>
-                <label class="col-sm-1 col-form-label">รหัสผ่าน : </label>
-                <div class="col-sm-3"><input type="password" [(ngModel)]="passwordPersonnel" class="form-control"></div>
+                <div class="col-sm-3"><input type="email" disabled [(ngModel)]="emailPersonnel" class="form-control"></div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-1 col-form-label">คำนำหน้า : </label>
@@ -40,10 +30,10 @@
             </div>
             <div class="row">
               <div class="col-6 text-left"></div>
-              <div class="col-6 text-right" (click)="createPersonnel()">
+              <div class="col-6 text-right" (click)="editPersonnel()">
                 <button type="submit"  class="btn btn-primary">
                   <i class="fa fa-lock" aria-hidden="true"></i>
-                  เพิ่มข้อมูลพนักงาน
+                  แก้ไขข้อมูลพนักงาน
                 </button>
               </div>
             </div>
