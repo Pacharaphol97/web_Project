@@ -20,13 +20,13 @@
                     </mat-select>
                 </mat-form-field>
                 <label class="col-sm-1 col-form-label">ชือ : </label>
-                <div class="col-sm-2"><input type="string" [(ngModel)]="firstnamePersonnel" class="form-control"></div>
+                <div class="col-sm-2"><input [formControl]="firstname" pattern="^[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]+$" [(ngModel)]="firstnamePersonnel" class="form-control"></div>
                 <label class="col-sm-1 col-form-label">นามสกุล : </label>
-                <div class="col-sm-2"><input type="string" [(ngModel)]="lastnamePersonnel" class="form-control"></div>
+                <div class="col-sm-2"><input [formControl]="lastname" pattern="^[กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุูเแโใไๅๆ็่้๊๋์]+$" [(ngModel)]="lastnamePersonnel" class="form-control"></div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-1 col-form-label">เบอร์โทร : </label>
-                <div class="col-sm-3"><input type="string" [(ngModel)]="numberPersonnel" class="form-control"></div>
+                <div class="col-sm-3"><input [formControl]="number" pattern="^[0-9]{10,10}$" [(ngModel)]="numberPersonnel" class="form-control"></div>
             </div>
             <div class="row">
               <div class="col-6 text-left"></div>
@@ -37,6 +37,9 @@
                 </button>
               </div>
             </div>
+            <div *ngIf="firstname.errors?.pattern" class="Error">*ชื่อไม่ถูกต้อง ต้องเป็นภาษาไทยเท่านั้น</div>
+            <div *ngIf="lastname.errors?.pattern" class="Error">*นามสกุลไม่ถูกต้อง ต้องเป็นภาษาไทยเท่านั้น</div>
+            <div *ngIf="number.errors?.pattern" class="Error">*เบอร์โทรไม่ถูกต้อง ต้องเป็นตัวเลขทั้งหมด 10 ตัว เท่านั้น</div>
             <div text-center class="Error">{{message}}</div> 
         </div>
       </div>

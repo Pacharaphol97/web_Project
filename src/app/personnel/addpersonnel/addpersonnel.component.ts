@@ -10,7 +10,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AddpersonnelComponent implements OnInit {
 
-  addPersonnelForm: FormGroup;
+  id = new FormControl(); 
+  email = new FormControl(); 
+  firstname = new FormControl(); 
+  lastname = new FormControl(); 
+  number = new FormControl(); 
+
   message
   idPersonnel
   positionPersonnel
@@ -28,8 +33,9 @@ export class AddpersonnelComponent implements OnInit {
   ]
 
   position = [
-    {value:"03",viewValue:"หัวหน้างาน"},
-    {value:"04",viewValue:"พนักงาน"},
+    {value:"03",viewValue:"ผู้จัดการ"},
+    {value:"04",viewValue:"หัวหน้างาน"},
+    {value:"05",viewValue:"พนักงาน"},
   ]
 
   constructor(

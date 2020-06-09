@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router , ActivatedRoute} from '@angular/router';
+import { ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FunctionService } from '../../services/function/function.service';
 
 @Component({
@@ -8,6 +9,10 @@ import { FunctionService } from '../../services/function/function.service';
   styleUrls: ['./editpersonnel.component.scss']
 })
 export class EditpersonnelComponent implements OnInit {
+
+  firstname = new FormControl(); 
+  lastname = new FormControl(); 
+  number = new FormControl(); 
 
   dataPersonnel
   message
@@ -60,7 +65,7 @@ export class EditpersonnelComponent implements OnInit {
       id:this.dataPersonnel.uid,
       perfix:this.perfixPersonnel,
       firstname:this.firstnamePersonnel,
-      lasename:this.lastnamePersonnel,
+      lastname:this.lastnamePersonnel,
       phonenumber:this.numberPersonnel
     }
     try {

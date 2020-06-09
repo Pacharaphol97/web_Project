@@ -16,11 +16,17 @@
         <li>
           <a class="nav-link" *ngIf="!auth.authenticated" [routerLink]="['/signin']">เข้าสู่ระบบ</a>
         </li>
-        <li>
+        <!-- <li>
           <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/profile']">โปรไฟล์</a>
+        </li> -->
+        <li>
+          <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/personnel']">รายชื่อพนักงาน</a>
         </li>
         <li>
-          <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/personnel']">รายชื่อพนักงานทั้งหมด</a>
+          <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/timestamp']">เวลาเข้างาน ออกงานของพนักงาน</a>
+        </li>
+        <li>
+          <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/leave']">การลางานของพนักงาน</a>
         </li>
         <li>
           <a class="nav-link" *ngIf="auth.authenticated" (click)="this.auth.signOut()">ออกจากระบบ</a>

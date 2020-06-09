@@ -19,9 +19,14 @@ export interface tablePersonnel{
 export class PersonnelComponent implements OnInit {
 
   dataPersonnel:MatTableDataSource<tablePersonnel>
-  displayedColumns: string[] = ['id','fullname','email','action'];
+  displayedColumns: string[] = ['id','fullname','email','position','action'];
   dataloading = false
   dataAllPersonnel
+  position = [
+    {value:"03",viewValue:"ผู้จัดการ"},
+    {value:"04",viewValue:"หัวหน้างาน"},
+    {value:"05",viewValue:"พนักงาน"},
+  ]
 
   constructor(
     public firebaseAPI : FunctionService,
@@ -38,6 +43,13 @@ export class PersonnelComponent implements OnInit {
     let i = 0
     let Personnel = []
     res.data.forEach(doc => {
+      let position
+      this.position.forEach(res => {
+        if(doc.personnel.position_id == res.value){
+          position = res.viewValue
+        }
+      })
+
       Personnel[i] = {
         uid:doc.id,
         id:doc.personnel.personnel_id,
@@ -45,7 +57,8 @@ export class PersonnelComponent implements OnInit {
         firstname:doc.personnel.personnel_fullname.personnel_firstname,
         lastname:doc.personnel.personnel_fullname.personnel_lastname,
         email:doc.personnel.personnel_email,
-        number:doc.personnel.personnel_tel
+        number:doc.personnel.personnel_tel,
+        position:position
       }
       i++
     })

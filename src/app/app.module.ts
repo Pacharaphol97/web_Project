@@ -18,7 +18,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AuthService } from './services/auth/auth.service';
 
 // Guard
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { PermissionGuard } from './guards/permission/permission.guard'
 
 // Component
 import { NavbarComponent } from './navbar/navbar.component'
@@ -28,6 +29,8 @@ import { ProfileComponent } from './profile/profile.component'
 import { PersonnelComponent } from './personnel/personnel/personnel.component'
 import { AddpersonnelComponent } from './personnel/addpersonnel/addpersonnel.component'
 import { EditpersonnelComponent } from './personnel/editpersonnel/editpersonnel.component'
+import { TimestampComponent } from './timestamp/timestamp/timestamp.component'
+import { LeaveComponent } from './leave/leave/leave.component'
 
 
 const routes: Routes = [
@@ -36,7 +39,9 @@ const routes: Routes = [
   {path:'profile',component:ProfileComponent,canActivate:[AuthGuard]},
   {path:'personnel',component:PersonnelComponent,canActivate:[AuthGuard]},
   {path:'createpersonnel',component:AddpersonnelComponent,canActivate:[AuthGuard]},
-  {path:'editpersonnel',component:EditpersonnelComponent,canActivate:[AuthGuard]}
+  {path:'editpersonnel',component:EditpersonnelComponent,canActivate:[AuthGuard]},
+  {path:'timestamp',component:TimestampComponent,canActivate:[AuthGuard]},
+  {path:'leave',component:LeaveComponent,canActivate:[AuthGuard]},
 ];
 
 @NgModule({
@@ -47,7 +52,9 @@ const routes: Routes = [
     HomeComponent,
     PersonnelComponent,
     AddpersonnelComponent,
-    EditpersonnelComponent
+    EditpersonnelComponent,
+    TimestampComponent,
+    LeaveComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +68,7 @@ const routes: Routes = [
     AngularFirestoreModule,
     HttpClientModule
   ],
-  providers: [AngularFireDatabase ,AuthService,AuthGuard],
+  providers: [AngularFireDatabase ,AuthService,AuthGuard,PermissionGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
