@@ -30,6 +30,8 @@ import { PersonnelComponent } from './personnel/personnel/personnel.component'
 import { AddpersonnelComponent } from './personnel/addpersonnel/addpersonnel.component'
 import { EditpersonnelComponent } from './personnel/editpersonnel/editpersonnel.component'
 import { TimestampComponent } from './timestamp/timestamp/timestamp.component'
+import { PersonneltimestampComponent } from './timestamp/personneltimestamp/personneltimestamp.component'
+import { EdittimestampComponent } from './timestamp/edittimestamp/edittimestamp.component'
 import { LeaveComponent } from './leave/leave/leave.component'
 
 
@@ -41,6 +43,8 @@ const routes: Routes = [
   {path:'createpersonnel',component:AddpersonnelComponent,canActivate:[AuthGuard]},
   {path:'editpersonnel',component:EditpersonnelComponent,canActivate:[AuthGuard]},
   {path:'timestamp',component:TimestampComponent,canActivate:[AuthGuard]},
+  {path:'personneltimestamp',component:PersonneltimestampComponent,canActivate:[AuthGuard]},
+  {path:'edittimestamp',component:EdittimestampComponent,canActivate:[AuthGuard]},
   {path:'leave',component:LeaveComponent,canActivate:[AuthGuard]},
 ];
 
@@ -54,6 +58,8 @@ const routes: Routes = [
     AddpersonnelComponent,
     EditpersonnelComponent,
     TimestampComponent,
+    PersonneltimestampComponent,
+    EdittimestampComponent,
     LeaveComponent
   ],
   imports: [

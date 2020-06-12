@@ -19,7 +19,7 @@ export interface tablePersonnel{
 export class PersonnelComponent implements OnInit {
 
   dataPersonnel:MatTableDataSource<tablePersonnel>
-  displayedColumns: string[] = ['id','fullname','email','position','action'];
+  displayedColumns: string[] = ['id','fullname','email','number','position','action'];
   dataloading = false
   dataAllPersonnel
   position = [

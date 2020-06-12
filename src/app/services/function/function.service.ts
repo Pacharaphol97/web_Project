@@ -26,4 +26,12 @@ export class FunctionService {
   editPersonnel(body){
     return this.httpclient.post(firebaseFunction.functionURL +'/editPersonnel',body).toPromise();
   }
+
+  getTimestamp(body){
+    return this.httpclient.post(firebaseFunction.functionURL +'/gettimestamp',body).toPromise();
+  }
+
+  editTimestamp(body){
+    return this.httpclient.post(firebaseFunction.functionURL +'/edittimestamp',body).toPromise();
+  }
 }
