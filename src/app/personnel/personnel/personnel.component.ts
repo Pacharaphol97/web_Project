@@ -4,12 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-
-export interface tablePersonnel{
-  id:String,
-  fullname:String,
-  email:String
-}
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PositiontransferComponent } from '../positiontransfer/positiontransfer.component'
 
 @Component({
   selector: 'app-personnel',
@@ -18,8 +14,8 @@ export interface tablePersonnel{
 })
 export class PersonnelComponent implements OnInit {
 
-  dataPersonnel:MatTableDataSource<tablePersonnel>
-  displayedColumns: string[] = ['id','fullname','email','number','position','action'];
+  dataPersonnel
+  displayedColumns: string[] = ['id','fullname','email','number','position','status','action'];
   dataloading = false
   dataAllPersonnel
   position = [
@@ -30,7 +26,8 @@ export class PersonnelComponent implements OnInit {
 
   constructor(
     public firebaseAPI : FunctionService,
-    public router:Router 
+    public router:Router ,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +35,7 @@ export class PersonnelComponent implements OnInit {
   }
 
   async getPersonnel(){
+    this.dataloading = false
     const res:any = await this.firebaseAPI.getPersonnel()
     this.dataAllPersonnel = res
     let i = 0
@@ -58,7 +56,9 @@ export class PersonnelComponent implements OnInit {
         lastname:doc.personnel.personnel_fullname.personnel_lastname,
         email:doc.personnel.personnel_email,
         number:doc.personnel.personnel_tel,
-        position:position
+        positionid:doc.personnel.position_id,
+        position:position,
+        status:"ปกติ"
       }
       i++
     })
@@ -73,6 +73,16 @@ export class PersonnelComponent implements OnInit {
 
   editPersonnel(element){
     this.router.navigate(['editpersonnel'],{queryParams: {dataPersonnel:JSON.stringify(element)}})
+  }
+
+  positiontransfer(element){
+    const dialogRef = this.dialog.open(PositiontransferComponent, {
+      width: '500px',
+      data: element
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getPersonnel()
+    });
   }
 
   private paginator: MatPaginator;

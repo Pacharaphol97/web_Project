@@ -14,6 +14,7 @@ export class EdittimestampComponent implements OnInit {
   date
   timestampin
   timestampout
+  loading = false
 
   constructor(
     public firebaseAPI : FunctionService,
@@ -35,6 +36,7 @@ export class EdittimestampComponent implements OnInit {
 
   async editTimestamp(){
     this.message = ''
+    this.loading = true
     let body = {
       uid:this.data.uid,
       idtimestamp:this.data.idtimestamp,
@@ -45,6 +47,7 @@ export class EdittimestampComponent implements OnInit {
       const res = await this.firebaseAPI.editTimestamp(body)
       this.dialogRef.close();
     } catch (error) {
+      this.loading = false
       this.message = "ไม่สามารถบันทึกข้อมูลได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง"
     }
   }

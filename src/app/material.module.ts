@@ -32,6 +32,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {OwlDateTimeModule,OwlNativeDateTimeModule,OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
+import { NgxLoadingModule } from 'ngx-loading';
 
 export const MY_NATIVE_FORMATS = {
   fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false},
@@ -78,7 +79,8 @@ export const MY_NATIVE_FORMATS = {
     MatPaginatorModule,
     NgxMaterialTimepickerModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    NgxLoadingModule.forRoot({})
   ],
   exports: [
     BrowserAnimationsModule,
@@ -115,7 +117,8 @@ export const MY_NATIVE_FORMATS = {
     MatPaginatorModule,
     NgxMaterialTimepickerModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    NgxLoadingModule
   ],
   providers: [
     {provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS},

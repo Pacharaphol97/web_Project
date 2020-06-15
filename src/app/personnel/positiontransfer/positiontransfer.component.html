@@ -1,0 +1,24 @@
+<ng-template #customLoadingTemplate></ng-template>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+
+<h2>ย้ายตำแหน่ง {{data.perfix}}{{data.firstname}} {{data.lastname}}</h2>
+<div class="form-group row">
+<label class="col-sm-4 col-form-label">ตำแหน่งพนักงาน</label>
+<mat-form-field>
+    <mat-select [(ngModel)]="positionPersonnel">
+        <mat-option *ngFor="let item of position" [value]="item.value">
+            {{item.viewValue}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+</div>
+<div class="row">
+    <div class="col-6 text-left"></div>
+    <div class="col-6 text-right" (click)="positiontransfer()">
+      <button type="submit"  class="btn btn-primary">
+        <i class="fa fa-lock" aria-hidden="true"></i>
+        ย้ายตำแหน่งพนักงาน
+      </button>
+    </div>
+    <div text-center class="Error">{{message}}</div> 
+</div>

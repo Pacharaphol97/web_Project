@@ -1,3 +1,6 @@
+<ng-template #customLoadingTemplate></ng-template>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+
 <div class="form-group row">
     <label class="col-sm-10 col-form-label">แก้ไขเวลาเข้างาน {{date}}</label>
 </div>
