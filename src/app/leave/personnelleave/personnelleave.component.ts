@@ -64,8 +64,6 @@ export class PersonnelleaveComponent implements OnInit {
       const startdata = formatterday.format(startdataiso)
       const enddata = formatterday.format(enddataiso)
 
-      console.log(startdataiso)
-      console.log(enddataiso)
       let messagestatus
       const status = doc.dataleave.approve_status
       switch (status) {
