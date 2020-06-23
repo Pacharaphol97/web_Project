@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FunctionService } from '../../services/function/function.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-addpersonnel',
@@ -25,6 +26,12 @@ export class AddpersonnelComponent implements OnInit {
   firstnamePersonnel
   lastnamePersonnel
   numberPersonnel
+  teamuid = ""
+  managerPersonnel
+  leaderPersonnel
+  teamname
+  loading = false
+  teamshow = false
 
   perfix = [
     {value:"นาย"},
@@ -41,34 +48,54 @@ export class AddpersonnelComponent implements OnInit {
   constructor(
     public firebaseAPI : FunctionService,
     public router:Router ,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public dialogRef: MatDialogRef<AddpersonnelComponent>,
+    @Inject(MAT_DIALOG_DATA) 
+    public data
   ) { }
 
   ngOnInit(): void {
-    this.getPersonnel()
+    this.team()
   }
 
-  async getPersonnel(){
-    const res:any = await this.firebaseAPI.getPersonnel()
-    console.log(res)
-    let i = 0
-    let Personnel = []
-    res.data.forEach(doc => {
-      Personnel[i] = {
-        uid:doc.id,
-        id:doc.personnel.personnel_id,
-        perfix:doc.personnel.personnel_fullname.personnel_prefix,
-        firstname:doc.personnel.personnel_fullname.personnel_firstname,
-        lastname:doc.personnel.personnel_fullname.personnel_lastname,
-        email:doc.personnel.personnel_email
+  team(){
+    let managerI = 0
+    let leaderI = 0
+    this.managerPersonnel = []
+    this.leaderPersonnel = []
+    this.data.data.forEach(doc => {
+      if(doc.personnel.position_id == "03"){
+        this.managerPersonnel[managerI] = {
+          uid:doc.id,
+          name:doc.personnel.personnel_fullname.personnel_prefix+doc.personnel.personnel_fullname.personnel_firstname+" "+doc.personnel.personnel_fullname.personnel_lastname
+        }
+        managerI++
+      }else if(doc.personnel.position_id == "04"){
+        this.leaderPersonnel[leaderI] = {
+          uid:doc.id,
+          name:doc.personnel.personnel_fullname.personnel_prefix+doc.personnel.personnel_fullname.personnel_firstname+" "+doc.personnel.personnel_fullname.personnel_lastname
+        }
+        leaderI++
       }
-      i++
     })
-    
+  }
+
+  onChange(event) {
+    this.teamuid = ""
+    if(event.value == "04"){
+      this.teamname = this.managerPersonnel
+      this.teamshow = true
+    }else if(event.value == "05"){
+      this.teamname = this.leaderPersonnel
+      this.teamshow = true
+    }else{
+      this.teamshow = false
+    }
   }
 
   async createPersonnel(){
     this.message = ''
+    this.loading = true
     var bodycreatePersonnel = {
       id:this.idPersonnel,
       email:this.emailPersonnel,
@@ -77,12 +104,14 @@ export class AddpersonnelComponent implements OnInit {
       firstname:this.firstnamePersonnel,
       lastname:this.lastnamePersonnel,
       phonenumber:this.numberPersonnel,
-      positionid:this.positionPersonnel
+      positionid:this.positionPersonnel,
+      leaderuid:this.teamuid
     }
     try {
       const res = await this.firebaseAPI.createPersonnel(bodycreatePersonnel)
-      this.router.navigateByUrl('/personnel')
+      this.dialogRef.close();
     } catch (error) {
+      this.loading = false
       this.message = "กรอกข้อมูลไม่ถูกต้อง กรุณากรอกใหม่อีกครั้ง"
     }
     

@@ -1,0 +1,18 @@
+<ng-template #customLoadingTemplate></ng-template>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+
+<div class="form-group row">
+    <label >หัวข้อข่าวสาร : </label>
+    <div class="topic"><input [(ngModel)]="topic" class="form-control"></div>
+</div>
+<div class="detail"><angular-editor [placeholder]="'กรุณาใส่ข้อความ...'" [(ngModel)]="detail"></angular-editor></div>
+<div class="row">
+    <div class="col-6 text-left"></div>
+    <div class="col-6 text-right" (click)="createPublicrelations()">
+      <button type="submit"  class="btn btn-primary">
+        <i class="fa fa-lock" aria-hidden="true"></i>
+        เพิ่มข่าวสารประชาสัมพันธ์
+      </button>
+    </div>
+  </div>  
+  <div text-center class="Error">{{message}}</div>  

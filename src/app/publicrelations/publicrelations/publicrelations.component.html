@@ -1,0 +1,38 @@
+<mat-progress-bar *ngIf="!dataloading" mode="indeterminate"></mat-progress-bar>
+<div *ngIf="dataloading" class="button" (click)="add()">
+    <button mat-raised-button >เพิ่มข่าวประชาสัมพันธ์</button>
+</div>
+
+<table *ngIf="dataloading" mat-table matSort matSortActive="id" matSortDirection="desc" [dataSource]="dataPublicrelations">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> รหัสข่าวสาร </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="topic">
+      <th mat-header-cell *matHeaderCellDef> หัวข้อข่าวสาร </th>
+      <td mat-cell *matCellDef="let element"> {{element.topic}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="personnel">
+      <th mat-header-cell *matHeaderCellDef> ผู้ลงข่าวสาร </th>
+      <td mat-cell *matCellDef="let element"> {{element.personnel}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> วันที่ประกาศ </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> จัดการ </th>
+      <td mat-cell *matCellDef="let element" class="action-link"> 
+        <button mat-raised-button color="primary" (click)="detail(element)">รายละเอียดข่าวสาร</button>
+        <button mat-raised-button color="primary" (click)="edit(element)">แก้ไขข่าวสาร</button>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator *ngIf="dataloading" [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>

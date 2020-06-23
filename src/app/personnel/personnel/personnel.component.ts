@@ -5,7 +5,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AddpersonnelComponent } from '../addpersonnel/addpersonnel.component'
+import { EditpersonnelComponent } from '../editpersonnel/editpersonnel.component'
 import { PositiontransferComponent } from '../positiontransfer/positiontransfer.component'
+import { TeamtransferComponent } from '../teamtransfer/teamtransfer.component'
 
 @Component({
   selector: 'app-personnel',
@@ -15,7 +18,7 @@ import { PositiontransferComponent } from '../positiontransfer/positiontransfer.
 export class PersonnelComponent implements OnInit {
 
   dataPersonnel
-  displayedColumns: string[] = ['id','fullname','email','number','position','status','action'];
+  displayedColumns: string[] = ['id','fullname','email','number','position','teamname','status','action'];
   dataloading = false
   dataAllPersonnel
   position = [
@@ -48,6 +51,18 @@ export class PersonnelComponent implements OnInit {
         }
       })
 
+      let teamname = "ไม่มีสังกัด"
+      this.dataAllPersonnel.data.forEach(element => {
+        if(doc.personnel.leader_uid == element.id){
+          teamname = element.personnel.personnel_fullname.personnel_prefix+element.personnel.personnel_fullname.personnel_firstname+" "+element.personnel.personnel_fullname.personnel_lastname
+        }
+      })
+
+      let teamcheck = true
+      if(doc.personnel.position_id == "03"){
+        teamcheck = false
+      }
+
       Personnel[i] = {
         uid:doc.id,
         id:doc.personnel.personnel_id,
@@ -58,6 +73,9 @@ export class PersonnelComponent implements OnInit {
         number:doc.personnel.personnel_tel,
         positionid:doc.personnel.position_id,
         position:position,
+        teamuid:doc.personnel.leader_uid,
+        teamname:teamname,
+        teamcheck:teamcheck,
         status:"ปกติ"
       }
       i++
@@ -68,17 +86,39 @@ export class PersonnelComponent implements OnInit {
   }
 
   addPersonnel(){
-    this.router.navigateByUrl('/createpersonnel')
+    const dialogRef = this.dialog.open(AddpersonnelComponent, {
+      width: '800px',
+      data: this.dataAllPersonnel
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getPersonnel()
+    });
   }
 
   editPersonnel(element){
-    this.router.navigate(['editpersonnel'],{queryParams: {dataPersonnel:JSON.stringify(element)}})
+    const dialogRef = this.dialog.open(EditpersonnelComponent, {
+      width: '800px',
+      data: element
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getPersonnel()
+    });
   }
 
   positiontransfer(element){
     const dialogRef = this.dialog.open(PositiontransferComponent, {
       width: '500px',
       data: element
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getPersonnel()
+    });
+  }
+
+  teamtransfer(element){
+    const dialogRef = this.dialog.open(TeamtransferComponent, {
+      width: '500px',
+      data: {dataAllPersonnel:this.dataAllPersonnel,personnel:element},
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getPersonnel()

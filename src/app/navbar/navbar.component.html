@@ -20,6 +20,9 @@
           <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/profile']">โปรไฟล์</a>
         </li> -->
         <li>
+          <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/publicrelations']">ข่าวประชาสัมพันธ์</a>
+        </li>
+        <li>
           <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/personnel']">รายชื่อพนักงาน</a>
         </li>
         <li>

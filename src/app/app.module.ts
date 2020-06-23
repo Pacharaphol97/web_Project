@@ -30,10 +30,16 @@ import { PersonnelComponent } from './personnel/personnel/personnel.component'
 import { AddpersonnelComponent } from './personnel/addpersonnel/addpersonnel.component'
 import { EditpersonnelComponent } from './personnel/editpersonnel/editpersonnel.component'
 import { PositiontransferComponent } from './personnel/positiontransfer/positiontransfer.component'
+import { TeamtransferComponent } from './personnel/teamtransfer/teamtransfer.component'
 import { TimestampComponent } from './timestamp/timestamp/timestamp.component'
 import { PersonneltimestampComponent } from './timestamp/personneltimestamp/personneltimestamp.component'
 import { EdittimestampComponent } from './timestamp/edittimestamp/edittimestamp.component'
 import { LeaveComponent } from './leave/leave/leave.component'
+import { PersonnelleaveComponent } from './leave/personnelleave/personnelleave.component'
+import { PublicrelationsComponent } from './publicrelations/publicrelations/publicrelations.component'
+import { DetailpublicrelationsComponent } from './publicrelations/detailpublicrelations/detailpublicrelations.component'
+import { AddpublicrelationsComponent } from './publicrelations/addpublicrelations/addpublicrelations.component'
+import { EditpublicrelationsComponent } from './publicrelations/editpublicrelations/editpublicrelations.component'
 
 
 const routes: Routes = [
@@ -46,6 +52,8 @@ const routes: Routes = [
   {path:'timestamp',component:TimestampComponent,canActivate:[AuthGuard]},
   {path:'personneltimestamp',component:PersonneltimestampComponent,canActivate:[AuthGuard]},
   {path:'leave',component:LeaveComponent,canActivate:[AuthGuard]},
+  {path:'personnelleave',component:PersonnelleaveComponent,canActivate:[AuthGuard]},
+  {path:'publicrelations',component:PublicrelationsComponent,canActivate:[AuthGuard]},
 ];
 
 @NgModule({
@@ -58,10 +66,16 @@ const routes: Routes = [
     AddpersonnelComponent,
     EditpersonnelComponent,
     PositiontransferComponent,
+    TeamtransferComponent,
     TimestampComponent,
     PersonneltimestampComponent,
     EdittimestampComponent,
-    LeaveComponent
+    LeaveComponent,
+    PersonnelleaveComponent,
+    PublicrelationsComponent,
+    DetailpublicrelationsComponent,
+    AddpublicrelationsComponent,
+    EditpublicrelationsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { Router , ActivatedRoute} from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FunctionService } from '../../services/function/function.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-editpersonnel',
@@ -24,6 +25,7 @@ export class EditpersonnelComponent implements OnInit {
   firstnamePersonnel
   lastnamePersonnel
   numberPersonnel
+  loading = false
 
   perfix = [
     {value:"นาย"},
@@ -39,7 +41,10 @@ export class EditpersonnelComponent implements OnInit {
   constructor(
     public firebaseAPI : FunctionService,
     public router:Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public dialogRef: MatDialogRef<EditpersonnelComponent>,
+    @Inject(MAT_DIALOG_DATA) 
+    public data
   ) { }
 
   ngOnInit(): void {
@@ -47,20 +52,18 @@ export class EditpersonnelComponent implements OnInit {
   }
 
   getPersonnel(){
-    this.activatedRoute.queryParams.subscribe((params) => {
-      let Personnel = params['dataPersonnel']
-      this.dataPersonnel = JSON.parse(Personnel)
-      this.idPersonnel = this.dataPersonnel.id
-      this.emailPersonnel = this.dataPersonnel.email
-      this.perfixPersonnel = this.dataPersonnel.perfix
-      this.firstnamePersonnel = this.dataPersonnel.firstname
-      this.lastnamePersonnel = this.dataPersonnel.lastname
-      this.numberPersonnel = this.dataPersonnel.number
-    });
+    this.dataPersonnel = this.data
+    this.idPersonnel = this.dataPersonnel.id
+    this.emailPersonnel = this.dataPersonnel.email
+    this.perfixPersonnel = this.dataPersonnel.perfix
+    this.firstnamePersonnel = this.dataPersonnel.firstname
+    this.lastnamePersonnel = this.dataPersonnel.lastname
+    this.numberPersonnel = this.dataPersonnel.number
   }
 
   async editPersonnel(){
     this.message = ''
+    this.loading = true
     var bodyeditPersonnel = {
       id:this.dataPersonnel.uid,
       perfix:this.perfixPersonnel,
@@ -70,8 +73,9 @@ export class EditpersonnelComponent implements OnInit {
     }
     try {
       const res = await this.firebaseAPI.editPersonnel(bodyeditPersonnel)
-      this.router.navigateByUrl('/personnel')
+      this.dialogRef.close();
     } catch (error) {
+      this.loading = false
       this.message = "กรอกข้อมูลไม่ถูกต้อง กรุณากรอกใหม่อีกครั้ง"
     }
   }

@@ -110,6 +110,7 @@ export class AuthService {
         this.authState = user
         // this.updateUserData()
         this.router.navigate(['/'])
+        window.localStorage.setItem('@uid', user.user.uid)
       })
       .catch(error => console.log(error));
   }
@@ -130,6 +131,7 @@ export class AuthService {
   }
 
   signOut(): void {
+    window.localStorage.clear
     this.afAuth.auth.signOut();
     this.router.navigate(['/'])
   }
