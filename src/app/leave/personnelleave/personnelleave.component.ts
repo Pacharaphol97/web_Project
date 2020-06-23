@@ -60,10 +60,12 @@ export class PersonnelleaveComponent implements OnInit {
         }
       })
       const startdataiso = new Date(doc.dataleave.leave_date._seconds * 1000);
-      const enddataiso = startdataiso.setDate(startdataiso.getDate()+(doc.dataleave.leave_number-1));
+      const enddataiso = new Date(startdataiso.getDate()+(doc.dataleave.leave_number-1));
       const startdata = formatterday.format(startdataiso)
       const enddata = formatterday.format(enddataiso)
 
+      console.log(startdataiso)
+      console.log(enddataiso)
       let messagestatus
       const status = doc.dataleave.approve_status
       switch (status) {
