@@ -1,11 +1,29 @@
 <mat-progress-bar *ngIf="!dataloading" mode="indeterminate"></mat-progress-bar>
 <div *ngIf="dataloading" class="button">
-    <button mat-raised-button (click)="addPersonnel()">เพิ่มข้อมูลพนักงาน</button>
+    <button class="add" mat-raised-button mat-button color="primary" (click)="addPersonnel()"><mat-icon>person_add_alt_1</mat-icon> เพิ่มข้อมูลพนักงาน</button>
 </div>
 
-<table *ngIf="dataloading" mat-table matSort matSortActive="id" matSortDirection="desc" [dataSource]="dataPersonnel">
+<div>
+  <mat-form-field *ngFor="let filter of filterSelectObj" style="margin-left: 15px;">
+    <mat-label>ค้นหา {{filter.name}}</mat-label>
+    <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
+      (change)="filterChange(filter,$event)">
+      <option value="">-- Select {{filter.name}} --</option>
+      <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+    </select>
+  </mat-form-field>
+  &nbsp;
+  <mat-form-field class="example-full-width">
+    <mat-label>ค้นหาด้วยชื่อพนักงาน</mat-label>
+    <input matInput  [(ngModel)]="searchname" (keyup)="filterChange({columnProp:'fullname'},$event)">
+  </mat-form-field>
+  &nbsp;
+  <button mat-flat-button color="warn" (click)="resetFilters()">ล้างช่องค้นหา</button>
+</div>
+
+<table *ngIf="dataloading" mat-table matSort [dataSource]="dataPersonnel">
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> รหัสพนักงาน </th>
+    <th mat-header-cell *matHeaderCellDef> รหัสพนักงาน </th>
     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
 
@@ -30,7 +48,7 @@
   </ng-container>
   
   <ng-container matColumnDef="teamname">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> สังกัด </th>
+    <th mat-header-cell *matHeaderCellDef> สังกัด </th>
     <td mat-cell *matCellDef="let element"> {{element.teamname}}</td>
   </ng-container>
 
@@ -42,9 +60,10 @@
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef> จัดการ </th>
     <td mat-cell *matCellDef="let element" class="action-link"> 
-      <button mat-raised-button color="primary" (click)="editPersonnel(element)">แก้ไขข้อมูล</button>
-      <button mat-raised-button color="primary" (click)="positiontransfer(element)">ย้ายตำแหน่ง</button>
-      <button mat-raised-button color="primary" *ngIf=element.teamcheck (click)="teamtransfer(element)">ย้ายสังกัด</button>
+      <button mat-raised-button mat-button color="primary" (click)="editPersonnel(element)">แก้ไขข้อมูล</button> &nbsp;
+      <button mat-raised-button mat-button color="primary" (click)="positiontransfer(element)">ย้ายตำแหน่ง</button> &nbsp;
+      <button mat-raised-button mat-button color="primary" [disabled]="element.teamcheck" (click)="teamtransfer(element)">ย้ายสังกัด</button> &nbsp;
+      <button class="delete" mat-raised-button mat-button color="primary" (click)="deletePersonnel(element)">ลบข้อมูล</button>
     </td>
   </ng-container>
 

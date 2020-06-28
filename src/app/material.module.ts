@@ -34,6 +34,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {OwlDateTimeModule,OwlNativeDateTimeModule,OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
 import {NgxLoadingModule} from 'ngx-loading';
 import {AngularEditorModule} from '@kolkov/angular-editor';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 export const MY_NATIVE_FORMATS = {
   fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false},
@@ -82,7 +83,9 @@ export const MY_NATIVE_FORMATS = {
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgxLoadingModule.forRoot({}),
-    AngularEditorModule
+    AngularEditorModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -121,7 +124,9 @@ export const MY_NATIVE_FORMATS = {
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgxLoadingModule,
-    AngularEditorModule
+    AngularEditorModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS},

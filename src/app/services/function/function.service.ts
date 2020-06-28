@@ -37,6 +37,10 @@ export class FunctionService {
     return this.httpclient.post(firebaseFunction.functionURL +'/teamTransfer',body).toPromise();
   }
 
+  deletePersonnel(body){
+    return this.httpclient.post(firebaseFunction.functionURL +'/deletePersonnel',body).toPromise();
+  }
+
   getTimestamp(body){
     return this.httpclient.post(firebaseFunction.functionURL +'/gettimestamp',body).toPromise();
   }

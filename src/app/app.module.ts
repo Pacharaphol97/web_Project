@@ -31,6 +31,7 @@ import { AddpersonnelComponent } from './personnel/addpersonnel/addpersonnel.com
 import { EditpersonnelComponent } from './personnel/editpersonnel/editpersonnel.component'
 import { PositiontransferComponent } from './personnel/positiontransfer/positiontransfer.component'
 import { TeamtransferComponent } from './personnel/teamtransfer/teamtransfer.component'
+import { DeletepersonnelComponent } from './personnel/deletepersonnel/deletepersonnel.component'
 import { TimestampComponent } from './timestamp/timestamp/timestamp.component'
 import { PersonneltimestampComponent } from './timestamp/personneltimestamp/personneltimestamp.component'
 import { EdittimestampComponent } from './timestamp/edittimestamp/edittimestamp.component'
@@ -67,6 +68,7 @@ const routes: Routes = [
     EditpersonnelComponent,
     PositiontransferComponent,
     TeamtransferComponent,
+    DeletepersonnelComponent,
     TimestampComponent,
     PersonneltimestampComponent,
     EdittimestampComponent,
