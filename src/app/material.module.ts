@@ -30,6 +30,20 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import {OwlDateTimeModule,OwlNativeDateTimeModule,OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
+import {NgxLoadingModule} from 'ngx-loading';
+import {AngularEditorModule} from '@kolkov/angular-editor';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+export const MY_NATIVE_FORMATS = {
+  fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false},
+  datePickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour12: false},
+  timePickerInput: {hour: 'numeric', minute: 'numeric',second:'numeric', hour12: false},
+  monthYearLabel: {year: 'numeric', month: 'short'},
+  dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+  monthYearA11yLabel: {year: 'numeric', month: 'long'},
+};
 
 @NgModule({
   imports: [
@@ -64,7 +78,14 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgxMaterialTimepickerModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    NgxLoadingModule.forRoot({}),
+    AngularEditorModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -98,7 +119,17 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgxMaterialTimepickerModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    NgxLoadingModule,
+    AngularEditorModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [
+    {provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS},
   ]
 })
 export class MaterialModule {}

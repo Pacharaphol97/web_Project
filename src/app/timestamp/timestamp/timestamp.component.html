@@ -1,0 +1,29 @@
+<mat-progress-bar *ngIf="!dataloading" mode="indeterminate"></mat-progress-bar>
+
+<table *ngIf="dataloading" mat-table matSort matSortActive="id" matSortDirection="desc" [dataSource]="dataPersonnel">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> รหัสพนักงาน </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="fullname">
+    <th mat-header-cell *matHeaderCellDef> ชื่อ - นามสกุล </th>
+    <td mat-cell *matCellDef="let element"> {{element.perfix}}{{element.firstname}} {{element.lastname}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="timestamp">
+    <th mat-header-cell *matHeaderCellDef> จำนวนการบันทึกเวลา </th>
+    <td mat-cell *matCellDef="let element"> {{element.timestamp}} </td>
+  </ng-container>
+  
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> จัดการ </th>
+    <td mat-cell *matCellDef="let element" class="action-link"> 
+      <button mat-raised-button color="primary" (click)="personnelTimestamp(element)" >บันทึกเวลาเข้างาน</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator *ngIf="dataloading" [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>

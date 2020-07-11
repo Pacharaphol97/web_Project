@@ -1,0 +1,29 @@
+<mat-progress-bar *ngIf="!dataloading" mode="indeterminate"></mat-progress-bar>
+
+<table *ngIf="dataloading" mat-table matSort [dataSource]="dataTimestamp">
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef> วันที่ </th>
+    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="timestamp_in">
+    <th mat-header-cell *matHeaderCellDef> เวลาเข้างาน </th>
+    <td mat-cell *matCellDef="let element"> {{element.timestamp_in}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="timestamp_out">
+    <th mat-header-cell *matHeaderCellDef> เวลาออกงาน </th>
+    <td mat-cell *matCellDef="let element"> {{element.timestamp_out}}</td>
+  </ng-container>
+  
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> จัดการ </th>
+    <td mat-cell *matCellDef="let element" class="action-link"> 
+      <button mat-raised-button color="primary" (click)="editTimestamp(element)">แก้ไขการบันทึกเวลา</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator *ngIf="dataloading" [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>

@@ -1,0 +1,24 @@
+<ng-template #customLoadingTemplate></ng-template>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+
+<h2>ย้ายสังกัด {{data.personnel.perfix}}{{data.personnel.firstname}} {{data.personnel.lastname}}</h2>
+<div class="form-group row">
+<label class="col-sm-4 col-form-label">สังกัด</label>
+<mat-form-field>
+    <mat-select [(ngModel)]="teamuid">
+        <mat-option *ngFor="let item of teamname" [value]="item.uid">
+            {{item.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+</div>
+<div class="row">
+    <div class="col-6 text-left"></div>
+    <div class="col-6 text-right" >
+      <button type="submit"  class="btn btn-primary" (click)="teamtransfer()">
+        <i class="fa fa-lock" aria-hidden="true"></i>
+        ย้ายสังกัดพนักงาน
+      </button>
+    </div>
+    <div text-center class="Error">{{message}}</div> 
+</div>

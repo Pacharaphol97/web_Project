@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand text-white" [routerLink]="['/']">
+      แผงควบคุม
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+  </ul>
+      <ul class="navbar-nav">
+        <li>
+          <a class="nav-link" [routerLink]="['/']">หน้าแรก</a>
+        </li>
+        <li>
+          <a class="nav-link" *ngIf="!auth.authenticated" [routerLink]="['/signin']">เข้าสู่ระบบ</a>
+        </li>
+        <!-- <li>
+          <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/profile']">โปรไฟล์</a>
+        </li> -->
+        <li>
+          <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/publicrelations']">ข่าวประชาสัมพันธ์</a>
+        </li>
+        <li>
+          <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/personnel']">รายชื่อพนักงาน</a>
+        </li>
+        <li>
+          <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/timestamp']">เวลาเข้างาน ออกงานของพนักงาน</a>
+        </li>
+        <li>
+          <a class="nav-link" *ngIf="auth.authenticated" [routerLink]="['/leave']">การลางานของพนักงาน</a>
+        </li>
+        <li>
+          <a class="nav-link" *ngIf="auth.authenticated" (click)="this.auth.signOut()">ออกจากระบบ</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
